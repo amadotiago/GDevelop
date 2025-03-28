@@ -76,6 +76,9 @@ export const useParameterOverridingAlertDialog = () => {
   };
 };
 
+// This name is used internally by GDevelop and JavaScript.
+const PROTECTED_PARAMETER_NAMES = ['Number'];
+
 const getValidatedParameterName = (
   parameters: gdParameterMetadataContainer,
   projectScopedContainers: gdProjectScopedContainers,
@@ -88,7 +91,8 @@ const getValidatedParameterName = (
     tentativeNewName =>
       parameters.hasParameterNamed(tentativeNewName) ||
       variablesContainersList.has(tentativeNewName) ||
-      objectsContainersList.hasObjectNamed(tentativeNewName)
+      objectsContainersList.hasObjectNamed(tentativeNewName) ||
+      PROTECTED_PARAMETER_NAMES.includes(tentativeNewName)
   );
   return safeAndUniqueNewName;
 };
